@@ -1,3 +1,5 @@
+// Pieces of code, testing and otuher things, if not more useful, must be deleted
+
 const Config = require("../../config/config")
 const mysql = require("mysql2")
 module.exports = class Database {
@@ -13,7 +15,6 @@ module.exports = class Database {
     return this._host
   }
   set host(host) {
-    console.log("+++++++++++++++++++++++++++++++++++++++++++++++++okok")
     this._host = host
   }
 
@@ -61,6 +62,43 @@ module.exports = class Database {
       return true
     } catch (error) {
       console.error(error)
+      return false
+    }
+  }
+}
+
+const Config = require("../../config/config")
+const mysql = require("mysql2")
+
+module.exports = class userDatabase {
+  constructor(connection) {
+    this._con = connection
+  }
+
+  get con() {
+    return this._con
+  }
+  set con(con) {
+    this._con = con
+  }
+
+  setUser() {
+    console.log("a")
+    // let name = userObject.name
+    // let email = userObject.email
+    // let pass = userObject.pass
+
+    try {
+      let sql = "SELECT * FROM USER"
+      console.log("gg")
+      this.con.query(sql, (error, result, fields) => {
+        console.log("aa")
+        if (error) throw error
+        return result
+      })
+    } catch (error) {
+      console.error(error)
+      console.log("c")
       return false
     }
   }
