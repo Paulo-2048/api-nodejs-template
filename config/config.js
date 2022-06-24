@@ -2,7 +2,8 @@ require("dotenv").config({ path: "../.env" })
 
 const config = {
   jwtSecret: process.env.JWT_SECRET,
-
+  jwtRefreshSecret: process.env.JWT_REFRESH_SECRET,
+  
   database: {
     dbHost: process.env.HOSTDB,
     dbUsername: process.env.USERNAMEDB,

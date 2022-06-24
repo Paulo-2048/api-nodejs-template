@@ -1,11 +1,11 @@
-const Config = require("../../config/config")
+const config = require("../../config/config")
 const mysql = require("mysql2")
 module.exports = class Database {
   constructor() {
-    ;(this._host = Config.database.dbHost),
-      (this._username = Config.database.dbUsername),
-      (this._password = Config.database.dbPassword),
-      (this._database = Config.database.dbName),
+    ;(this._host = config.database.dbHost),
+      (this._username = config.database.dbUsername),
+      (this._password = config.database.dbPassword),
+      (this._database = config.database.dbName),
       this.createConnection()
   }
 
