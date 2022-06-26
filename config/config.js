@@ -1,22 +1,25 @@
-const dotenv = require("dotenv")
+require("dotenv").config({ path: "../.env" })
 
-dotenv.config({
-  path: process.env.NODE_ENV === "local" ? ".env" : ".env.example",
-})
+const config = {
+  jwtSecret: process.env.JWT_SECRET,
+  jwtRefreshSecret: process.env.JWT_REFRESH_SECRET,
+  
+  database: {
+    dbHost: process.env.HOSTDB,
+    dbUsername: process.env.USERNAMEDB,
+    dbPassword: process.env.PASSWORDDB,
+    dbName: process.env.DATABASEDB,
+    ssl: true,
+  },
 
-module.exports = {
-    jwtSecret: process.env.JWT_SECRET,
-
-    database: {
-        host: process.env.DB_HOST
+  constants: {
+    sql: {
+      sucess: "Query Executada",
     },
-
-    constants: {
-        sql: {
-            sucess: 'Query Executada'
-        },
-        http: {
-            sucess: 'Requisição bem sucedida'
-        }
-    }
+    http: {
+      sucess: "Requisição bem sucedida",
+    },
+  },
 }
+
+module.exports = config
