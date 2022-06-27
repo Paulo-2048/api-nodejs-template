@@ -20,6 +20,16 @@ module.exports = class userDatabase {
     }
   }
 
+  async getUserById(id) {
+    try {
+      let sql = "SELECT * FROM user WHERE iduser = " + id
+      const [result, fields] = await this.con.promise().query(sql)
+      return result
+    } catch (error) {
+      return error
+    }
+  }
+
   async setUser(user) {
     let name = user.name
     let email = user.email
@@ -30,7 +40,7 @@ module.exports = class userDatabase {
       const [result, fields] = await this.con
         .promise()
         .query(sql, [name, email, pass])
-      return result.affectedRows
+      return result
     } catch (error) {
       return error
     }
@@ -40,7 +50,7 @@ module.exports = class userDatabase {
     try {
       let sql = "UPDATE user SET " + column + " = ? WHERE iduser = " + id
       const [result, fields] = await this.con.promise().query(sql, [value])
-      return result.affectedRows
+      return result
     } catch (error) {
       return error
     }
@@ -50,7 +60,7 @@ module.exports = class userDatabase {
     try {
       let sql = "DELETE FROM user WHERE iduser = " + id
       const [result, fields] = await this.con.promise().query(sql)
-      return result.affectedRows
+      return result
     } catch (error) {
       return error
     }

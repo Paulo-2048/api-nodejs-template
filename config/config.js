@@ -3,7 +3,9 @@ require("dotenv").config({ path: "../.env" })
 const config = {
   jwtSecret: process.env.JWT_SECRET,
   jwtRefreshSecret: process.env.JWT_REFRESH_SECRET,
-  
+
+  port: process.env.PORT,
+
   database: {
     dbHost: process.env.HOSTDB,
     dbUsername: process.env.USERNAMEDB,
@@ -17,7 +19,8 @@ const config = {
       sucess: "Query Executada",
     },
     http: {
-      sucess: "Requisição bem sucedida",
+      sucess: "Request Sucessful",
+      fail: "Request Fail",
     },
   },
 }
