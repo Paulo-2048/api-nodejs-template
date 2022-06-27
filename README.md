@@ -1,6 +1,6 @@
-![Logo](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/th5xamgrr6se0x5ro4g6.png)
+<!-- ![Logo](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/th5xamgrr6se0x5ro4g6.png) -->
 
-# API Node.JS Template
+# Node.JS API Template
 
 A generic template, for quickly building Node.JS based API's, and fast deploy in Vercel host
 
@@ -36,13 +36,11 @@ A generic template, for quickly building Node.JS based API's, and fast deploy in
 
 - Change .env-example to .env, and this respectives environment variables
 
-- PS. some files is empty or incomplete (like database file), since this informations is based on the aplication you will build, but this files will be quoted later
-
 ## Environment Variables
 
 To run this project, you will need to add the following environment variables to your .env file
 
-`SECRET` -> JWT SECRET
+`JWT_SECRET` -> JWT SECRET
 
 `HOSTDB` -> Database Host
 
@@ -50,7 +48,9 @@ To run this project, you will need to add the following environment variables to
 
 `PASSWORDDB` -> Database Password
 
-`STANDARTDB` -> Database name
+`DATABASEDB` -> Database name
+
+`PORT` -> Server Port
 
 ## Folder Structure
 
@@ -59,49 +59,102 @@ Most simple example project is this one, using following project structure.
 ```sh
 project
 ├── api
+    └── controller
     └── database
         └── connectionDatabase.js
     └──models
     └── routes
     └── index.js
 └── config
-    └── .env
     └── config.js
+└── middleware
 └── rules
 └── utils
+└── .env
 └── .gitignore
 └── package.json
 └── README.md
 └── vercel.json
 ```
 
-## API Reference
+## API Exemple Reference
 
-#### Get all items
+#### Get Status
 
 ```http
-  GET /api/items
+  GET /
 ```
 
-| Parameter | Type     | Description                |
-| :-------- | :------- | :------------------------- |
-| `api_key` | `string` | **Required**. Your API key |
+Returns status api
 
-#### Get item
+#### Get user
 
 ```http
-  GET /api/items/${id}
+  GET /user
+```
+
+Returns all user of database
+
+#### Get user by id
+
+```http
+  GET /user/{id}
 ```
 
 | Parameter | Type     | Description                       |
 | :-------- | :------- | :-------------------------------- |
-| `id`      | `string` | **Required**. Id of item to fetch |
+| `id`      | `number` | **Required**. Id of user to fetch |
 
-#### add(num1, num2)
+Returns the user of id in database
 
-Takes two numbers and returns the sum.
+```http
+  post /user/
+```
 
-## FAQ
+| Parameter  | Type     | Description                                |
+| :--------- | :------- | :----------------------------------------- |
+| `name`     | `string` | **Required**. Name to save in database     |
+| `email`    | `string` | **Required**. Email to save in database    |
+| `password` | `string` | **Required**. Password to save in database |
+
+Returns the id created when sucess
+
+```http
+  post /user/login
+```
+
+| Parameter  | Type     | Description                                  |
+| :--------- | :------- | :------------------------------------------- |
+| `email`    | `string` | **Required**. Email to search in database    |
+| `password` | `string` | **Required**. Password to search in database |
+
+Returns the jwt token when sucess
+
+```http
+  post /user/update
+```
+
+| Parameter | Type                 | Description                                                 |
+| :-------- | :------------------- | :---------------------------------------------------------- |
+| `token`   | `string (jwt token)` | **Required**. Token to authentication                       |
+| `id`      | `string`             | **Required**. Id of user that will be updated               |
+| `column`  | `string`             | **Required**. Column that will be updated                   |
+| `value`   | `string`             | **Required**. Value with which collumn that will be updated |
+
+Returns only success or failure message
+
+```http
+  post /user/delete
+```
+
+| Parameter | Type                 | Description                                   |
+| :-------- | :------------------- | :-------------------------------------------- |
+| `token`   | `string (jwt token)` | **Required**. Token to authentication         |
+| `id`      | `string`             | **Required**. Id of user that will be deleted |
+
+Returns only success or failure message
+
+<!-- ## FAQ
 
 #### Whats the depe
 
@@ -109,8 +162,8 @@ Answer 1
 
 #### Question 2
 
-Answer 2
+Answer 2 -->
 
 ## Feedback
 
-If you have any feedback, please reach out to me at paulo19032004@gmail.com
+If you have any feedback or suggestion, please reach out to me at paulo19032004@gmail.com

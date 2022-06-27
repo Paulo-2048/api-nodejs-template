@@ -1,40 +1,52 @@
 const jwt = require("jsonwebtoken")
 const config = require("../config/config")
-const userDatabase = require("../api/database/userExampleDb")
-const Database = require("../api/database/connectionDB")
+// const userDatabase = require("../api/database/userExampleDb")
+// const Database = require("../api/database/connectionDB")
 
-exports.jwtGenerate = (id) => {
+exports.jwtGenerate = (req, res, next) => {
   // # No expires
   try {
     let result = jwt.sign(
       {
-        id: id,
+        id: res.locals.id,
       },
       config.jwtSecret
     )
-    return result
+
+    res.status(200).send({
+      msg: config.constants.http.sucess,
+      token: result,
+    })
   } catch (err) {
-    return err
+    res.status(500).send({
+      msg: config.constants.http.fail,
+      err: config.constants.http.jwtFail,
+    })
   }
 }
 
-exports.jwtVerify = (token) => {
+exports.jwtVerify = (req, res, next) => {
   try {
+    let token = req.headers.authorization.split(" ")[1]
     let result = jwt.verify(token, config.jwtSecret)
-    return result
+    res.locals.id = result.id
+    next()
   } catch (err) {
-    return err
+    res.status(500).send({
+      msg: config.constants.http.fail,
+      err: config.constants.http.jwtFail,
+    })
   }
 }
 
-exports.jwtDecode = (token) => {
-  try {
-    let result = jwt.decode(token, config.jwtSecret)
-    return result
-  } catch (err) {
-    return err
-  }
-}
+// exports.jwtDecode = (token) => {
+//   try {
+//     let result = jwt.decode(token, config.jwtSecret)
+//     return result
+//   } catch (err) {
+//     return err
+//   }
+// }
 
 // exports.jwtRefresh = async (token) => { # Function to refrensh token
 //   const db = new Database()
