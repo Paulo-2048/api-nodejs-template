@@ -33,9 +33,7 @@ module.exports = class userDatabase {
   async login(email, pass) {
     try {
       let sql = "SELECT * FROM user WHERE email = ? AND password = ?"
-      const [result, fields] = await this.con
-        .promise()
-        .query(sql, [email, pass])
+      const result = await this.con.promise().query(sql, [email, pass])
       return result
     } catch (error) {
       return error
@@ -49,9 +47,7 @@ module.exports = class userDatabase {
 
     try {
       let sql = "INSERT INTO user (name, email, password) VALUES (?, ?, ?)"
-      const result = await this.con
-        .promise()
-        .query(sql, [name, email, pass])
+      const result = await this.con.promise().query(sql, [name, email, pass])
       return result
     } catch (error) {
       return error
@@ -61,7 +57,7 @@ module.exports = class userDatabase {
   async updateUser(id, column, value) {
     try {
       let sql = "UPDATE user SET " + column + " = ? WHERE iduser = " + id
-      const [result, fields] = await this.con.promise().query(sql, [value])
+      const result = await this.con.promise().query(sql, [value])
       return result
     } catch (error) {
       return error
@@ -71,7 +67,7 @@ module.exports = class userDatabase {
   async deleteUser(id) {
     try {
       let sql = "DELETE FROM user WHERE iduser = " + id
-      const [result, fields] = await this.con.promise().query(sql)
+      const result = await this.con.promise().query(sql)
       return result
     } catch (error) {
       return error

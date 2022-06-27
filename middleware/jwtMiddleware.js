@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken")
 const config = require("../config/config")
-const userDatabase = require("../api/database/userExampleDb")
-const Database = require("../api/database/connectionDB")
+// const userDatabase = require("../api/database/userExampleDb")
+// const Database = require("../api/database/connectionDB")
 
 exports.jwtGenerate = (req, res, next) => {
   // # No expires

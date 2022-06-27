@@ -53,7 +53,7 @@ exports.set = async (req, res, next) => {
   try {
     let userModel = new UserModel(req.body.name, req.body.email, req.body.pass)
     let result = await userDb.setUser(userModel)
-    if (result.affectedRows <= 0 || result.affectedRows == undefined)
+    if (result.affectedRows <= 0 || result[0].affectedRows == undefined)
       throw "Error em Create"
     res.status(200).send({
       msg: config.constants.http.sucess,
@@ -70,7 +70,8 @@ exports.update = async (req, res, next) => {
     let column = req.body.column
     let value = req.body.value
     let result = await userDb.updateUser(id, column, value)
-    if (result.affectedRows <= 0 || result.affectedRows == undefined) throw "Error em update"
+    if (result.affectedRows <= 0 || result[0].affectedRows == undefined)
+      throw "Error em update"
     res.status(200).send({
       msg: config.constants.http.sucess,
     })
@@ -83,7 +84,8 @@ exports.delete = async (req, res, next) => {
   try {
     let id = req.body.id
     let result = await userDb.deleteUser(id)
-    if (result.affectedRows <= 0 || result.affectedRows == undefined) throw "Error em delete"
+    if (result.affectedRows <= 0 || result[0].affectedRows <= 0)
+      throw "Error em delete"
     res.status(200).send({
       msg: config.constants.http.sucess,
     })
