@@ -30,6 +30,18 @@ module.exports = class userDatabase {
     }
   }
 
+  async login(email, pass) {
+    try {
+      let sql = "SELECT * FROM user WHERE email = ? AND password = ?"
+      const [result, fields] = await this.con
+        .promise()
+        .query(sql, [email, pass])
+      return result
+    } catch (error) {
+      return error
+    }
+  }
+
   async setUser(user) {
     let name = user.name
     let email = user.email
@@ -37,7 +49,7 @@ module.exports = class userDatabase {
 
     try {
       let sql = "INSERT INTO user (name, email, password) VALUES (?, ?, ?)"
-      const [result, fields] = await this.con
+      const result = await this.con
         .promise()
         .query(sql, [name, email, pass])
       return result

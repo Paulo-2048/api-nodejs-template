@@ -21,6 +21,7 @@ const config = {
     http: {
       sucess: "Request Sucessful",
       fail: "Request Fail",
+      jwtFail: 'Token Verify Fail'
     },
   },
 }
